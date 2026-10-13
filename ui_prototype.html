@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hostel Management — Figma-style Mobile Prototype</title>
+<style>
+:root{--blue:#0868df;--navy:#063b73;--light:#f4f8fc;--line:#dce8f4;--text:#12304d;--muted:#6c8197;--green:#13a66a;--red:#ef4444;--orange:#ff9d2e;}
+*{box-sizing:border-box} html,body{margin:0;padding:0;background:#e9f0f7;color:var(--text);font-family:Inter,Arial,sans-serif}
+body{scroll-snap-type:y mandatory;overflow-y:auto}
+.topbar-demo{position:fixed;z-index:30;top:12px;left:50%;transform:translateX(-50%);width:min(760px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border:1px solid #dbe6f0;border-radius:16px;padding:10px 14px;box-shadow:0 8px 30px #14395a1a}
+.topbar-demo b{font-size:13px} .counter{font-size:12px;color:var(--muted)}
+.viewport{min-height:100vh;display:grid;place-items:center;scroll-snap-align:start;padding:72px 18px 28px}
+.phone{width:min(390px,92vw);height:min(820px,calc(100vh - 110px));min-height:640px;background:#fff;border:7px solid #092f55;border-radius:38px;box-shadow:0 22px 60px #173b5c35;overflow:hidden;position:relative}
+.status{height:28px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 15px;font-size:10px;color:#163b5f}
+.app{height:calc(100% - 28px);overflow:auto;background:#fff;scrollbar-width:none} .app::-webkit-scrollbar{display:none}
+.page{padding:20px 18px 76px} h1,h2,h3{margin:0 0 8px;color:var(--navy)} h1{font-size:23px} h2{font-size:20px} h3{font-size:15px;margin-top:20px} p{font-size:12px} small{display:block;font-size:10px;color:var(--muted);margin-top:3px} .muted{color:var(--muted)} .white{color:#fff} .center{text-align:center}
+.auth{padding:45px 22px;text-align:left} .auth.centered{text-align:center;padding-top:90px} .logo,.bigicon{width:64px;height:64px;border-radius:18px;background:#eaf3ff;color:var(--blue);display:grid;place-items:center;font-size:35px;margin:0 auto 15px} .bigicon{border-radius:50%;font-size:28px}
+.auth h1,.auth p{text-align:center} label{display:block;font-size:11px;margin:16px 0 6px;font-weight:700}
+.input,.search{height:42px;border:1px solid var(--line);border-radius:10px;background:#fbfdff;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:11px;color:#7b8fa4;margin:9px 0} .input b{margin-left:auto} button{width:100%;border:0;border-radius:11px;background:var(--blue);color:#fff;font-weight:700;padding:12px 14px;margin:10px 0;font-size:12px;cursor:pointer} button.outline{background:#fff;color:var(--blue);border:1px solid var(--blue)} button.danger{background:var(--red)} .row{display:flex;gap:10px;align-items:center} .row>*{flex:1} .small{font-size:10px} a{color:var(--blue);font-weight:700}
+.or{text-align:center;color:#9aacbc;font-size:10px;margin:6px}
+.seg,.tabs{display:flex;background:#eef5fb;border-radius:10px;padding:4px;margin:12px 0} .seg>* ,.tabs>*{flex:1;text-align:center;padding:8px;border-radius:8px;font-size:10px} .seg b,.tabs b{background:#fff;color:var(--blue);box-shadow:0 2px 7px #183a5b12}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px} .topbar small{font-size:9px}
+.room-card{background:linear-gradient(135deg,#0878ed,#1c61cc);color:#fff;border-radius:16px;padding:15px;display:flex;justify-content:space-between;align-items:center} .room-card small{color:#dcecff} .mini{width:auto;padding:7px 9px;margin:0;font-size:9px;border-radius:8px}
+.stats2,.grid4{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0} .stats2>div,.grid4>div{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff} .stats2 b,.grid4 b{display:block;font-size:15px;margin-top:5px;color:var(--navy)} .grid4>div:nth-child(3) b{color:var(--orange)} .grid4>div:nth-child(4) b{color:var(--red)}
+.list>div,.person,.receipt,.staff,.complaint,.setting,.details>div{border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;background:#fff;box-shadow:0 3px 12px #173b5c09}
+.person,.staff,.profile-row{display:flex;gap:10px;align-items:center} .person>div,.staff>div{flex:1} .person i{color:var(--red);font-style:normal} .avatar{width:38px;height:38px;border-radius:50%;background:#dceeff;color:var(--navy);display:grid;place-items:center;font-size:11px;font-weight:800} .avatar.large{width:76px;height:76px;margin:12px auto;font-size:18px} .avatar.huge{width:88px;height:88px;margin:20px auto;font-size:24px}
+.details>div{display:flex;justify-content:space-between;font-size:11px} .details b{color:var(--navy)} .left>div{display:block} .left b{float:right}
+.summary{border:1px solid var(--line);border-radius:14px;padding:15px;background:#f9fcff} .summary strong{display:block;font-size:20px;margin:5px 0;color:var(--navy)} .summary em{color:var(--red);font-style:normal} .progress{height:7px;background:#e6edf5;border-radius:10px;overflow:hidden;margin:8px 0} .progress:before{content:"";display:block;height:100%;width:82%;background:var(--green)}
+.receipt{position:relative} .receipt strong{float:right;color:var(--navy)} .badge{float:right;padding:5px 8px;border-radius:20px;font-size:9px;font-weight:800} .paid{background:#dff8eb;color:var(--green)} .pending{background:#fff0d8;color:#c87500} .greenbox{background:#edfff7}
+.complaint p{font-size:11px} .complaint .mini{margin-top:7px}
+.setting{display:flex;gap:10px;align-items:center} .setting div{flex:1} .green{color:var(--green);font-weight:700}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px} .quick button{background:#f6fbff;color:var(--navy);border:1px solid var(--line);margin:0;padding:13px 4px;font-size:20px} .quick small{color:var(--navy);font-size:9px}
+.chart{height:130px;display:flex;align-items:end;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(#fff,#f8fbff)} .chart i{flex:1;background:linear-gradient(#0d83ff,#2b61cc);border-radius:5px 5px 2px 2px}
+.splash{height:100%;min-height:680px;background:linear-gradient(#0a4c8d88,#031f3fdd),url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80') center/cover;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff} .house{font-size:80px;border:2px solid #fff;border-radius:20px;padding:10px 25px;margin-bottom:30px} .splash-title{font-size:22px;font-weight:800} .loader{width:26px;height:26px;border:3px solid #ffffff55;border-top-color:#fff;border-radius:50%;margin-top:90px;animation:spin 1s linear infinite} @keyframes spin{to{transform:rotate(360deg)}}
+.logout-overlay{height:100%;min-height:680px;background:#06264bb8;display:grid;place-items:center;padding:20px} .modal{background:#fff;border-radius:18px;padding:25px;text-align:center;width:90%} .logout-icon{width:55px;height:55px;background:#ffe8e8;color:var(--red);border-radius:50%;display:grid;place-items:center;font-size:25px;margin:0 auto 10px}
+.bottom{position:absolute;bottom:0;left:0;right:0;height:58px;background:#fff;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around;z-index:10} .bottom span{font-size:9px;color:#70859a;text-align:center} .bottom b{color:var(--blue)}
+.navbtn{position:fixed;bottom:16px;z-index:31;background:#0b4f91;color:#fff;border:0;border-radius:999px;padding:10px 14px;font-size:11px;box-shadow:0 8px 25px #123d6028} .prev{left:18px} .next{right:18px} 
+@media(max-width:600px){.topbar-demo{top:6px} .viewport{padding:48px 6px 10px} .phone{width:100%;height:calc(100vh - 65px);min-height:600px;border-width:4px;border-radius:28px} .navbtn{bottom:8px}}
+</style>
+</head>
+<body>
+<div class="topbar-demo"><b>Hostel Management · Mobile Prototype</b><span class="counter" id="counter">1 / 20</span></div>
+<button class="navbtn prev" onclick="go(-1)">← Previous</button>
+<button class="navbtn next" onclick="go(1)">Next →</button>
+<div id="screens">
+
+<section class="viewport" id="screen-1">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="splash">
+          <div class="splash-photo"><div class="house">⌂</div></div>
+          <div class="splash-title">Hostel Management</div>
+          <div class="muted white">Safe Stay · Better Tomorrow</div>
+          <div class="loader"></div><small class="white">Loading...</small>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-2">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="auth">
+          <div class="logo">⌂</div>
+          <h1>Hostel Management</h1>
+          <p class="muted">Login to your account</p>
+          <label>Email or Phone</label><div class="input">✉ <span>example@email.com</span></div>
+          <label>Password</label><div class="input">🔒 <span>Enter your password</span><b>◉</b></div>
+          <div class="row small"><span>☑ Remember me</span><a>Forgot Password?</a></div>
+          <button>Login</button>
+          <div class="or">OR</div>
+          <button class="outline">Create New Account</button>
+          <p class="small muted">Don’t have an account? Sign Up</p>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-3">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page">
+          <h2>Create Account</h2><p class="muted center">Join our hostel community</p>
+          <div class="seg"><b>Student</b><span>Staff</span></div>
+          <div class="input">👤 <span>Full Name</span></div><div class="input">✉ <span>Email Address</span></div>
+          <div class="input">☎ <span>Phone Number</span></div><div class="input">▣ <span>Student ID</span></div>
+          <div class="input">🔒 <span>Password</span></div><div class="input">✓ <span>Confirm Password</span></div>
+          <button>Sign Up</button><p class="center small muted">Already have an account? <a>Login</a></p>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-4">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="auth centered">
+          <div class="bigicon">✉</div><h2>Forgot Password</h2>
+          <p class="muted">Enter your email or phone number to reset your password</p>
+          <div class="input">✉ <span>example@email.com</span></div>
+          <button>Send Reset Link</button><a class="small">Back to Login</a>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-5">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page">
+          <div class="topbar"><div><b>Hello, Masud</b><small>Welcome back!</small></div><span>🔔</span></div>
+          <div class="room-card"><div><b>▣ Room 204B</b><small>Bed: A</small></div><button class="mini">View Details</button></div>
+          <div class="stats2"><div><small>Monthly Rent</small><b>৳3,000</b></div><div><small>Last Payment</small><b>৳3,000</b></div></div>
+          <h3>Recent Notifications</h3>
+          <div class="list"><div>🟢 Payment received <small>Apr 10, 2025</small></div><div>🔵 New message from warden <small>Apr 8, 2025</small></div></div>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-6">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page">
+          <h2>My Profile</h2><div class="avatar large">MR</div><h3 class="center">Masud Rana</h3><p class="center muted">Student ID: 241071031</p>
+          <div class="details"><div>⌂ Room No <b>204B</b></div><div>▦ Department <b>CSE</b></div><div>☎ Phone <b>01712345678</b></div><div>✉ Email <b>masud@gmail.com</b></div><div>⌖ Address <b>Dhaka, Bangladesh</b></div></div>
+          <button>Edit Profile</button><button class="outline">Change Password</button>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-7">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>Student Directory</h2><div class="search">⌕ Search by name, ID, room...</div>
+        <div class="person">👤 <div><b>Md. Masud Rana</b><small>ID: 241071031 · Room 204B</small></div><i>🗑</i></div>
+        <div class="person">👩 <div><b>Jonaki Akter</b><small>ID: 241071032 · Room 301A</small></div><i>🗑</i></div>
+        <div class="person">👤 <div><b>Rakib Hasan</b><small>ID: 241071035 · Room 105C</small></div><i>🗑</i></div>
+        <div class="person">👩 <div><b>Sadia Islam</b><small>ID: 241071037 · Room 202A</small></div><i>🗑</i></div>
+        <button>＋ Add New Student</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-8">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>Payment Receipts</h2>
+        <div class="summary"><b>Monthly Target</b><strong>৳18,000</strong><div class="progress"></div><small>Collected: ৳15,550 · <em>Due: ৳2,450</em></small></div>
+        <div class="receipt"><b>Receipt #RCP-9012</b><strong>৳150</strong><small>Md. Masud Rana · Apr 10, 2025</small><span class="badge paid">PAID</span></div>
+        <div class="receipt"><b>Receipt #RCP-9013</b><strong>৳150</strong><small>Jonaki Akter · Apr 8, 2025</small><span class="badge pending">PENDING</span></div>
+        <div class="receipt"><b>Receipt #RCP-9014</b><strong>৳150</strong><small>Rakib Hasan · Apr 5, 2025</small><span class="badge paid">PAID</span></div>
+        <button>＋ Log New Payment</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-9">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>Payment Details</h2><div class="profile-row"><div class="avatar">JA</div><div><b>Jonaki Akter</b><small>ID: 241071032 · Room 301A</small></div></div>
+        <div class="details"><div>Payment Amount <b>৳150.00</b></div><div>Month <b>April 2025</b></div><div>Payment Method <b>bKash</b></div><div>Transaction ID <b>BK-123456789</b></div><div>Payment Date <b>Apr 8, 2025</b></div><div>Status <span class="badge pending">PENDING</span></div></div>
+        <div class="row"><button class="outline">Edit</button><button class="danger">Delete</button></div></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-10">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>Staff Management</h2><div class="search">⌕ Search staff name or role...</div>
+        <div class="staff"><div class="avatar">KH</div><div><b>Kamal Hossain</b><small>Warden · Morning (7 AM–3 PM)</small><small>Salary: ৳45,000/mo</small></div><button class="mini">Call</button></div>
+        <div class="staff"><div class="avatar">SM</div><div><b>Salam Mia</b><small>Security Guard · Night (8 PM–6 AM)</small><small>Salary: ৳32,000/mo</small></div><button class="mini">Call</button></div>
+        <div class="staff"><div class="avatar">RU</div><div><b>Rafiq Uddin</b><small>Cleaner · Day (8 AM–4 PM)</small><small>Salary: ৳28,000/mo</small></div><button class="mini">Call</button></div>
+        <button>＋ Add New Staff</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-11">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>Complaint Box</h2><div class="tabs"><b>All</b><span>Pending</span><span>Resolved</span></div>
+        <div class="complaint"><b>Ticket #CMP-104 <span class="badge pending">PENDING</span></b><strong>Jonaki Akter · Room 304</strong><p>“Water leakage in bathroom pipe”</p><small>Apr 12, 2025</small><button class="mini">Change Status</button></div>
+        <div class="complaint"><b>Ticket #CMP-099 <span class="badge paid">RESOLVED</span></b><strong>Tanvir Ahmed · Room 102</strong><p>“Corridor tube light replaced”</p><small>Apr 10, 2025</small></div>
+        <button>＋ Add / Manage Complaint</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-12">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>Settings</h2>
+        <div class="setting">🏢 <div><b>Hostel Profile</b><small>SMUCT Campus Residence · Sector 9, Uttara</small></div>›</div>
+        <div class="setting">☁️ <div><b>Firebase Cloud Sync</b><small class="green">Active · Firestore Real-time Online</small></div>›</div>
+        <div class="setting">🔒 <div><b>Change Admin Password</b></div>›</div>
+        <div class="setting">🔔 <div><b>Notification Settings</b></div>›</div>
+        <div class="setting">◐ <div><b>App Theme</b><small>Light Mode</small></div>›</div>
+        <button class="danger outline">Log Out</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-13">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="auth">
+          <div class="logo">⌂</div>
+          <h1>Hostel Management</h1>
+          <p class="muted">Admin Login</p>
+          <label>Email or Phone</label><div class="input">✉ <span>example@email.com</span></div>
+          <label>Password</label><div class="input">🔒 <span>Enter your password</span><b>◉</b></div>
+          <div class="row small"><span>☑ Remember me</span><a>Forgot Password?</a></div>
+          <button>Login</button>
+          <div class="or">OR</div>
+          <button class="outline">Create New Account</button>
+          <p class="small muted">Secure Admin Access</p>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-14">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><div class="topbar"><div><b>Admin Dashboard</b><small>Hostel overview</small></div><span>🔔</span></div>
+        <div class="grid4"><div><small>Total Students</small><b>142</b></div><div><small>Occupied Rooms</small><b>48/60</b></div><div><small>Pending Dues</small><b>৳2,450</b></div><div><small>Active Complaints</small><b>05</b></div></div>
+        <h3>Quick Entry</h3><div class="quick"><button>👥<small>Add Student</small></button><button>🛡<small>Add Staff</small></button><button>💳<small>Add Payment</small></button></div>
+        <h3>Monthly Payment</h3><div class="chart"><i style="height:35%"></i><i style="height:55%"></i><i style="height:45%"></i><i style="height:72%"></i><i style="height:64%"></i><i style="height:82%"></i></div></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-15">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>All Students</h2><div class="search">⌕ Search students...</div>
+        <div class="person">👤 <div><b>Md. Masud Rana</b><small>ID: 241071031 · Room 204B</small></div><i>🗑</i></div>
+        <div class="person">👩 <div><b>Jonaki Akter</b><small>ID: 241071032 · Room 301A</small></div><i>🗑</i></div>
+        <div class="person">👤 <div><b>Rakib Hasan</b><small>ID: 241071035 · Room 105C</small></div><i>🗑</i></div>
+        <div class="person">👩 <div><b>Sadia Islam</b><small>ID: 241071037 · Room 202A</small></div><i>🗑</i></div>
+        <button>＋ Add Student</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-16">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>Add / Edit Student</h2>
+        <div class="avatar large">＋</div>
+        <div class="input">Full Name</div><div class="input">Student ID</div><div class="input">Phone Number</div><div class="input">Department</div><div class="input">Room</div><div class="input">Gender</div><div class="input">Upload Photo</div>
+        <button>Save Student</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-17">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>All Payments</h2><div class="search">⌕ Search by student or ID...</div>
+        <div class="summary greenbox"><b>Total Collected</b><strong>৳15,550</strong><small>Due: <em>৳2,450</em></small></div>
+        <div class="receipt"><b>Md. Masud Rana</b><strong>৳3,000</strong><small>Room 204B</small><span class="badge paid">PAID</span></div>
+        <div class="receipt"><b>Jonaki Akter</b><strong>৳3,000</strong><small>Room 301A</small><span class="badge pending">PENDING</span></div>
+        <div class="receipt"><b>Rakib Hasan</b><strong>৳3,000</strong><small>Room 105C</small><span class="badge paid">PAID</span></div>
+        <button>＋ Add Payment</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-18">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page"><h2>All Complaints</h2><div class="tabs"><b>All</b><span>Pending</span><span>Resolved</span></div>
+        <div class="complaint"><b>Ticket #CMP-104 <span class="badge pending">PENDING</span></b><strong>Jonaki Akter · Room 304</strong><p>“Water leakage in bathroom pipe”</p><small>Apr 12, 2025</small><button class="mini">Change Status</button></div>
+        <div class="complaint"><b>Ticket #CMP-099 <span class="badge paid">RESOLVED</span></b><strong>Tanvir Ahmed · Room 102</strong><p>“Corridor tube light replaced”</p><small>Apr 10, 2025</small></div>
+        </div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-19">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="page centered"><h2>Admin Profile</h2><div class="avatar huge">AD</div><h3>Admin</h3><p class="muted">admin@hostel.com</p>
+        <div class="details left"><div>⌘ Role <b>Administrator</b></div><div>☎ Phone <b>01711223344</b></div><div>✉ Email <b>admin@hostel.com</b></div></div>
+        <button>Edit Profile</button></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+<section class="viewport" id="screen-20">
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>⌁⌁⌁  ▰</span></div>
+    <div class="app">
+        <div class="logout-overlay"><div class="modal"><div class="logout-icon">↪</div><h2>Log Out</h2><p class="muted">Are you sure you want to log out from your account?</p><div class="row"><button class="outline">Cancel</button><button class="danger">Log Out</button></div></div></div></div>
+    <div class="bottom">
+      <span><b>⌂</b><br>Home</span><span>♙<br>Students</span><span>▣<br>Payments</span><span>⚠<br>Complaints</span><span>⚙<br>Settings</span>
+    </div>
+  </div>
+</section>
+
+</div>
+<script>
+const total=20;
+let current=1;
+function update(){
+  document.getElementById('counter').textContent=current+' / '+total;
+}
+function go(delta){
+  current=Math.max(1,Math.min(total,current+delta));
+  document.getElementById('screen-'+current).scrollIntoView({behavior:'smooth',block:'start'});
+  update();
+}
+window.addEventListener('scroll',()=>{
+  const h=window.innerHeight;
+  current=Math.max(1,Math.min(total,Math.round(window.scrollY/h)+1));
+  update();
+});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+</script>
+</body>
+</html>

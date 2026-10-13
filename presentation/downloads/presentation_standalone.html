@@ -1,0 +1,2177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hostel Management App — Official Interactive Presentation & Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #0868df;
+  --blue-hover: #0756b8;
+  --navy: #063b73;
+  --deep-dark: #071e3d;
+  --light: #f4f8fc;
+  --bg: #eef4fb;
+  --line: #dce8f4;
+  --text: #12304d;
+  --muted: #6c8197;
+  --green: #13a66a;
+  --green-bg: #dff8eb;
+  --red: #ef4444;
+  --red-bg: #ffe8e8;
+  --orange: #ff9d2e;
+  --orange-bg: #fff0d8;
+  --card-shadow: 0 10px 30px rgba(10, 47, 85, 0.08);
+  --frame-shadow: 0 25px 70px rgba(7, 30, 61, 0.25);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Master Header */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: #fff;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(8, 104, 223, 0.3);
+}
+.brand-info h1 {
+  font-size: 16px;
+  margin: 0;
+  color: var(--navy);
+  font-weight: 800;
+}
+.brand-info p {
+  font-size: 11px;
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.filter-pills {
+  display: flex;
+  background: #e4edf6;
+  border-radius: 12px;
+  padding: 3px;
+  gap: 2px;
+}
+.pill-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.pill-btn.active {
+  background: #fff;
+  color: var(--blue);
+  box-shadow: 0 2px 8px rgba(9, 47, 85, 0.08);
+}
+
+.action-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--blue-hover);
+}
+.btn-outline {
+  background: #fff;
+  color: var(--navy);
+  border-color: var(--line);
+}
+.btn-outline:hover {
+  background: #f0f6fc;
+}
+.btn-download {
+  background: linear-gradient(135deg, #063b73, #0868df);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(8, 104, 223, 0.25);
+}
+
+/* Subheader View Controls */
+.sub-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.view-tabs {
+  display: flex;
+  gap: 6px;
+}
+.view-tab {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.view-tab.active {
+  background: #eef5fb;
+  color: var(--navy);
+  font-weight: 700;
+}
+.slide-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.screen-selector {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--navy);
+  background: #fbfdff;
+  font-weight: 600;
+  outline: none;
+}
+
+/* Master Main Container */
+.main-stage {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px;
+  min-height: calc(100vh - 120px);
+}
+
+/* PRESENTATION SPLIT VIEW */
+.split-deck {
+  display: grid;
+  grid-template-columns: minmax(360px, 420px) 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* PHONE MOCKUP SHELL */
+.phone-wrapper {
+  position: sticky;
+  top: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.phone-frame {
+  width: 380px;
+  height: 780px;
+  background: #fff;
+  border: 8px solid #092f55;
+  border-radius: 44px;
+  box-shadow: var(--frame-shadow);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 20px;
+  background: #092f55;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.camera-lens {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #041427;
+}
+.speaker-grille {
+  width: 40px;
+  height: 4px;
+  border-radius: 3px;
+  background: #041427;
+}
+
+.status-bar {
+  height: 32px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 20px 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #163b5f;
+  z-index: 40;
+}
+.screen-scroll-viewport {
+  flex: 1;
+  overflow-y: auto;
+  background: #fff;
+  position: relative;
+  scrollbar-width: none;
+}
+.screen-scroll-viewport::-webkit-scrollbar { display: none; }
+
+/* Phone Bottom Nav Bar */
+.phone-nav-bar {
+  height: 60px;
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 40;
+  padding-bottom: 4px;
+}
+.nav-tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  color: #7b8fa4;
+  font-weight: 500;
+  cursor: pointer;
+}
+.nav-tab-item.active {
+  color: var(--blue);
+  font-weight: 700;
+}
+.nav-tab-item .icon {
+  font-size: 15px;
+}
+
+/* SCREEN UI INTERNAL ELEMENTS */
+.page-ui { padding: 18px 18px 24px; }
+.auth-ui { padding: 40px 20px 24px; text-align: left; }
+.auth-ui.centered { text-align: center; padding-top: 80px; }
+.auth-logo, .auth-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  background: #eaf3ff;
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 12px rgba(8, 104, 223, 0.12);
+}
+.auth-icon { border-radius: 50%; font-size: 26px; }
+
+.ui-title { font-size: 21px; font-weight: 800; color: var(--navy); margin: 0 0 6px; }
+.ui-subtitle { font-size: 12px; color: var(--muted); margin: 0 0 16px; }
+.ui-label { display: block; font-size: 11px; font-weight: 700; color: var(--navy); margin: 12px 0 6px; }
+.ui-input {
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fbfdff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  font-size: 11px;
+  color: #7b8fa4;
+  margin-bottom: 6px;
+}
+.ui-input b { margin-left: auto; color: var(--muted); }
+.ui-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 11px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  padding: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 12px 0 6px;
+}
+.ui-btn.outline { background: #fff; color: var(--blue); border: 1px solid var(--blue); }
+.ui-btn.danger { background: var(--red); color: #fff; }
+.ui-btn.mini { width: auto; padding: 6px 10px; margin: 0; font-size: 10px; border-radius: 8px; }
+
+.ui-row { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; font-size: 11px; }
+.ui-seg { display: flex; background: #eef5fb; border-radius: 10px; padding: 4px; margin: 12px 0; }
+.ui-seg > * { flex: 1; text-align: center; padding: 8px; border-radius: 8px; font-size: 11px; }
+.ui-seg b { background: #fff; color: var(--blue); font-weight: 700; box-shadow: 0 2px 7px rgba(24, 58, 91, 0.08); }
+
+.ui-room-card {
+  background: linear-gradient(135deg, #0878ed, #1c61cc);
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(8, 120, 237, 0.25);
+  margin-bottom: 12px;
+}
+.ui-room-card b { font-size: 15px; display: block; }
+.ui-room-card small { color: #dcecff; font-size: 11px; }
+
+.ui-stats2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.ui-stats2 > div { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fff; }
+.ui-stats2 small { font-size: 10px; color: var(--muted); }
+.ui-stats2 b { display: block; font-size: 16px; color: var(--navy); margin-top: 4px; font-weight: 800; }
+
+.ui-grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.ui-grid4 > div { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fff; }
+.ui-grid4 small { font-size: 10px; color: var(--muted); }
+.ui-grid4 b { display: block; font-size: 17px; color: var(--navy); margin-top: 4px; font-weight: 800; }
+.ui-grid4 > div:nth-child(3) b { color: var(--orange); }
+.ui-grid4 > div:nth-child(4) b { color: var(--red); }
+
+.ui-card-item {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 9px 0;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(23, 59, 92, 0.04);
+}
+.ui-person, .ui-staff { display: flex; gap: 12px; align-items: center; }
+.ui-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #dceeff;
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.ui-avatar.large { width: 76px; height: 76px; margin: 12px auto; font-size: 20px; }
+.ui-avatar.huge { width: 88px; height: 88px; margin: 16px auto; font-size: 24px; }
+
+.ui-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 800;
+}
+.ui-badge.paid { background: var(--green-bg); color: var(--green); }
+.ui-badge.pending { background: var(--orange-bg); color: #c87500; }
+
+.ui-details-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f4f9;
+  font-size: 11px;
+}
+.ui-details-row:last-child { border-bottom: 0; }
+.ui-details-row b { color: var(--navy); }
+
+.ui-summary {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: #f9fcff;
+  margin-bottom: 12px;
+}
+.ui-progress-bar {
+  height: 7px;
+  background: #e6edf5;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+.ui-progress-fill {
+  height: 100%;
+  width: 82%;
+  background: var(--green);
+}
+
+.ui-chart-bar {
+  height: 110px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(#fff, #f8fbff);
+  margin: 12px 0;
+}
+.ui-chart-bar i {
+  flex: 1;
+  background: linear-gradient(to top, #0868df, #3b8cf5);
+  border-radius: 4px 4px 2px 2px;
+}
+
+.splash-screen-bg {
+  height: 100%;
+  min-height: 670px;
+  background: linear-gradient(rgba(10, 76, 141, 0.88), rgba(3, 31, 63, 0.95)), url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80') center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 24px;
+}
+.splash-house-box {
+  width: 90px;
+  height: 90px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  font-size: 45px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(8px);
+}
+.ui-spinner {
+  width: 26px;
+  height: 26px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  margin-top: 60px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.logout-modal-box {
+  height: 100%;
+  min-height: 670px;
+  background: rgba(6, 38, 75, 0.75);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.modal-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* EXPLANATION CARD (RIGHT COLUMN) */
+.explanation-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  box-shadow: var(--card-shadow);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.card-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid #edf3f9;
+  padding-bottom: 18px;
+}
+.screen-num-badge {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--blue);
+  background: #ebf4ff;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+.role-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+.role-badge.user { background: #eaf8ff; color: #0275b8; }
+.role-badge.admin { background: #fef0e7; color: #c85304; }
+.role-badge.univ { background: #f0f4f9; color: var(--navy); }
+
+.screen-headline h2 {
+  font-size: 26px;
+  color: var(--navy);
+  margin: 0 0 6px;
+  font-weight: 800;
+}
+.screen-headline p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.feature-box {
+  background: #f8fbfe;
+  border: 1px solid #e7eff8;
+  border-radius: 14px;
+  padding: 20px;
+}
+.feature-box h4 {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.feature-list li {
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.4;
+}
+.feature-list li::before {
+  content: "✓";
+  color: var(--green);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+.spec-tile {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+.spec-tile span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+.spec-tile strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--navy);
+  font-family: monospace;
+}
+
+.flow-card {
+  border-left: 4px solid var(--blue);
+  background: #f3f8fe;
+  padding: 14px 18px;
+  border-radius: 0 12px 12px 0;
+  font-size: 13px;
+  color: #173b5c;
+  line-height: 1.5;
+}
+
+/* Slide Nav Controls (Bottom of card) */
+.nav-deck-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid #edf3f9;
+}
+.btn-nav-round {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-nav-round:hover {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+
+/* SCREEN JUMP TILES BAR */
+.jump-tiles-bar {
+  margin-top: 32px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  padding: 16px 20px;
+  box-shadow: 0 4px 16px rgba(10, 47, 85, 0.04);
+}
+.jump-tiles-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.jump-pills-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.jump-pill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #f0f6fc;
+  border: 1px solid transparent;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.jump-pill:hover { background: #e0ecf8; }
+.jump-pill.active {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* 20 SCREEN GALLERY VIEW */
+.gallery-grid {
+  display: none;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+.gallery-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(10, 47, 85, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(10, 47, 85, 0.12);
+  border-color: var(--blue);
+}
+.gallery-preview {
+  height: 280px;
+  background: #f8fbfe;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+.gallery-info {
+  padding: 14px 16px;
+}
+.gallery-info h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: var(--navy);
+}
+.gallery-info p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* DOWNLOAD MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 31, 61, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: none;
+  place-items: center;
+  padding: 20px;
+}
+.modal-box {
+  background: #fff;
+  border-radius: 24px;
+  width: min(640px, 95vw);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.modal-header {
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: #fff;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h3 { margin: 0; font-size: 18px; font-weight: 800; }
+.modal-close {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+.modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.download-card-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fbfdff;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+.download-card-item:hover {
+  background: #f1f7fd;
+  border-color: var(--blue);
+  transform: translateX(4px);
+}
+.download-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #eaf3ff;
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.download-text h5 { margin: 0 0 4px; font-size: 14px; color: var(--navy); }
+.download-text p { margin: 0; font-size: 12px; color: var(--muted); }
+
+/* PRINT MEDIA STYLES FOR 1-CLICK PDF EXPORT */
+@media print {
+  body { background: #fff !important; }
+  .top-nav, .sub-bar, .jump-tiles-bar, .nav-deck-controls, .modal-backdrop { display: none !important; }
+  .split-deck { display: block !important; }
+  .phone-wrapper { position: relative !important; top: 0 !important; margin-bottom: 20px !important; }
+  .phone-frame { border-width: 4px !important; box-shadow: none !important; page-break-inside: avoid; }
+  .explanation-card { box-shadow: none !important; border: 1px solid #ccc !important; page-break-after: always; }
+}
+
+@media (max-width: 900px) {
+  .split-deck { grid-template-columns: 1fr; }
+  .phone-wrapper { position: static; }
+  .phone-frame { width: 100%; max-width: 380px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 1. Top Navigation Bar -->
+<header class="top-nav">
+  <div class="brand-group">
+    <div class="brand-logo">🏨</div>
+    <div class="brand-info">
+      <h1>Hostel Management System</h1>
+      <p>Official Project Presentation & UI Screen Showcase</p>
+    </div>
+  </div>
+
+  <div class="filter-pills">
+    <button class="pill-btn active" onclick="setRoleFilter('all')">All Screens (20)</button>
+    <button class="pill-btn" onclick="setRoleFilter('user')">👤 Student / User Flow (11)</button>
+    <button class="pill-btn" onclick="setRoleFilter('admin')">🛡️ Admin Flow (9)</button>
+  </div>
+
+  <div class="action-tools">
+    <button class="btn btn-outline" onclick="toggleViewMode('gallery')" id="btnGalleryToggle">▦ Gallery Grid</button>
+    <button class="btn btn-outline" onclick="triggerPresentationMode()">⛶ Fullscreen</button>
+    <button class="btn btn-download" onclick="openDownloadModal()">📥 Download & Export Hub</button>
+  </div>
+</header>
+
+<!-- 2. Subheader Controls -->
+<div class="sub-bar">
+  <div class="view-tabs">
+    <button class="view-tab active" id="tabSplit" onclick="toggleViewMode('split')">📱 Interactive Phone & Specs</button>
+    <button class="view-tab" id="tabGallery" onclick="toggleViewMode('gallery')">▦ All 20 Screens Grid</button>
+  </div>
+
+  <div class="slide-indicator">
+    <span>Jump to Screen:</span>
+    <select class="screen-selector" id="screenDropdown" onchange="jumpToScreen(this.value)">
+      <!-- Populated via JS -->
+    </select>
+    <span id="counterLabel" style="font-size:12px;color:var(--muted)">1 / 20</span>
+  </div>
+</div>
+
+<!-- 3. Main Stage Container -->
+<main class="main-stage">
+
+  <!-- VIEW A: SPLIT INTERACTIVE PRESENTATION VIEW -->
+  <div class="split-deck" id="splitView">
+    
+    <!-- Phone Mockup Frame -->
+    <div class="phone-wrapper">
+      <div class="phone-frame">
+        <div class="phone-notch">
+          <div class="speaker-grille"></div>
+          <div class="camera-lens"></div>
+        </div>
+
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>⌁⌁⌁ &nbsp; ▰</span>
+        </div>
+
+        <div class="screen-scroll-viewport" id="phoneViewport">
+          <!-- Live rendered screen HTML injected dynamically -->
+        </div>
+
+        <!-- Phone Bottom Navigation Bar -->
+        <div class="phone-nav-bar" id="phoneBottomNav">
+          <div class="nav-tab-item active" id="navTabHome"><span class="icon">⌂</span><span>Home</span></div>
+          <div class="nav-tab-item" id="navTabStudents"><span class="icon">♙</span><span>Students</span></div>
+          <div class="nav-tab-item" id="navTabPayments"><span class="icon">▣</span><span>Payments</span></div>
+          <div class="nav-tab-item" id="navTabComplaints"><span class="icon">⚠</span><span>Complaints</span></div>
+          <div class="nav-tab-item" id="navTabSettings"><span class="icon">⚙</span><span>Settings</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen Detailed Explanation Deck -->
+    <div class="explanation-card" id="explanationCard">
+      <div class="card-header-bar">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="screen-num-badge" id="screenIdBadge">Screen 01</span>
+          <span class="role-badge" id="screenRoleBadge">UNIVERSAL</span>
+          <span style="font-size:12px;color:var(--muted);font-weight:600;" id="screenCategoryText">Authentication</span>
+        </div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;">Hostel App Presentation</div>
+      </div>
+
+      <div class="screen-headline">
+        <h2 id="screenTitleText">Splash Screen</h2>
+        <p id="screenDescText">High-level screen summary description.</p>
+      </div>
+
+      <!-- Purpose & Business Logic -->
+      <div class="flow-card">
+        <strong style="display:block;margin-bottom:4px;color:var(--navy);">🎯 Purpose & Workflow:</strong>
+        <span id="screenPurposeText">Screen purpose description...</span>
+      </div>
+
+      <!-- Key UI Features -->
+      <div class="feature-box">
+        <h4>✨ Key Features & Interactive Elements</h4>
+        <ul class="feature-list" id="screenFeaturesList">
+          <!-- Populated dynamically -->
+        </ul>
+      </div>
+
+      <!-- Technical Code Architecture -->
+      <div class="specs-grid">
+        <div class="spec-tile">
+          <span>Flutter Target File</span>
+          <strong id="specFlutterFile">splash_screen.dart</strong>
+        </div>
+        <div class="spec-tile">
+          <span>Target Architecture</span>
+          <strong id="specWidgets">Scaffold, Provider</strong>
+        </div>
+        <div class="spec-tile">
+          <span>Primary Design Tokens</span>
+          <strong id="specTokens">#0868DF · #063B73</strong>
+        </div>
+        <div class="spec-tile">
+          <span>State Management</span>
+          <strong>AppProvider (Provider)</strong>
+        </div>
+      </div>
+
+      <!-- Slide Navigation Controls -->
+      <div class="nav-deck-controls">
+        <button class="btn btn-outline" onclick="prevScreen()">← Previous Screen</button>
+        <span style="font-size:12px;font-weight:700;color:var(--navy);" id="slideCounterBottom">1 / 20</span>
+        <button class="btn btn-primary" onclick="nextScreen()">Next Screen →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VIEW B: 20-SCREEN GALLERY GRID VIEW -->
+  <div class="gallery-grid" id="galleryView">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Jump to Screen Carousel / Pills Bar -->
+  <div class="jump-tiles-bar">
+    <div class="jump-tiles-title">
+      <span>QUICK SCREEN NAVIGATOR</span>
+      <span style="color:var(--muted);font-size:11px;">Use keyboard Left/Right arrows to flip slides</span>
+    </div>
+    <div class="jump-pills-row" id="jumpPillsContainer">
+      <!-- Populated via JS -->
+    </div>
+  </div>
+
+</main>
+
+<!-- 4. Download & Export Hub Modal -->
+<div class="modal-backdrop" id="downloadModal" onclick="closeDownloadModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <h3>📥 Download & Export Presentation System</h3>
+        <p style="margin:4px 0 0;font-size:12px;opacity:0.9;">Export and present hostel app screens in multiple formats</p>
+      </div>
+      <button class="modal-close" onclick="closeDownloadModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- 1. Standalone HTML Package -->
+      <a href="downloads/presentation_standalone.html" target="_blank" class="download-card-item">
+        <div class="download-icon">🌐</div>
+        <div class="download-text">
+          <h5>Download Standalone Presentation (.html)</h5>
+          <p>Fully offline, self-contained single-file HTML presentation. Double click to present anywhere without internet.</p>
+        </div>
+      </a>
+
+      <!-- 2. Export to PDF -->
+      <div class="download-card-item" style="cursor:pointer;" onclick="printPresentationPDF()">
+        <div class="download-icon">📄</div>
+        <div class="download-text">
+          <h5>Export Slides as PDF / Print Ready</h5>
+          <p>Launches browser print engine with custom pagination to generate a clean PDF presentation slide deck.</p>
+        </div>
+      </div>
+
+      <!-- 3. Printable Project Report -->
+      <a href="downloads/PROJECT_SHOWCASE_REPORT.html" target="_blank" class="download-card-item">
+        <div class="download-icon">📊</div>
+        <div class="download-text">
+          <h5>View & Download Project Showcase Report (.html)</h5>
+          <p>Structured documentation report containing complete screen audits, architecture, and role diagrams.</p>
+        </div>
+      </a>
+
+      <!-- 4. Full Markdown Guide -->
+      <a href="PRESENTATION_GUIDE.md" download="Hostel_App_Presentation_Guide.md" class="download-card-item">
+        <div class="download-icon">📝</div>
+        <div class="download-text">
+          <h5>Download Markdown Presentation Guide (.md)</h5>
+          <p>Complete raw Markdown documentation including screen specifications and Flutter code maps.</p>
+        </div>
+      </a>
+
+      <!-- 5. JSON Dataset -->
+      <a href="downloads/hostel_screens_data.json" download="hostel_screens_data.json" class="download-card-item">
+        <div class="download-icon">⚙️</div>
+        <div class="download-text">
+          <h5>Download Structured Screen Dataset (.json)</h5>
+          <p>Machine-readable JSON data containing all 20 screens with metadata, widgets, and explanations.</p>
+        </div>
+      </a>
+
+      <!-- 6. Dedicated Download Hub -->
+      <a href="downloads/download_hub.html" target="_blank" class="download-card-item" style="background:#eaf3ff;border-color:var(--blue);">
+        <div class="download-icon">📂</div>
+        <div class="download-text">
+          <h5>Open Dedicated Download Folder Hub</h5>
+          <p>Browse all downloadable presentation packages in one standalone download management dashboard.</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// SCREEN DATA REPOSITORY (ALL 20 SCREENS WITH DESIGN & SPECIFICATIONS)
+const SCREENS_DATA = [
+  {
+    id: 1,
+    title: "Splash Screen",
+    role: "universal",
+    roleLabel: "UNIVERSAL",
+    category: "Authentication & Onboarding",
+    flutterFile: "lib/ui/screens/auth/splash_screen.dart",
+    desc: "First impression screen featuring hostel brand emblem, welcoming tagline, and smooth loading animation.",
+    purpose: "Displays the hostel branding, initializes application preferences, checks stored authentication tokens, and routes automatically.",
+    features: [
+      "Deep navy and blue atmospheric gradient background",
+      "Framed hostel house brand emblem",
+      "Official motto: 'Safe Stay · Better Tomorrow'",
+      "Smooth CSS-animated circular loader spinner",
+      "Timed asynchronous navigation (2.0s delay)"
+    ],
+    widgets: "Scaffold, Stack, LinearGradient, CircularProgressIndicator, Future.delayed",
+    tokens: "Bg Gradient, #063B73 Navy, #0868DF Blue",
+    activeTab: "none",
+    renderHtml: `
+      <div class="splash-screen-bg">
+        <div class="splash-house-box">⌂</div>
+        <div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;">Hostel Management</div>
+        <div style="font-size:12px;opacity:0.85;margin-top:4px;">Safe Stay · Better Tomorrow</div>
+        <div class="ui-spinner"></div>
+        <small style="margin-top:14px;font-size:10px;opacity:0.75;">Loading workspace...</small>
+      </div>
+    `
+  },
+  {
+    id: 2,
+    title: "Student Login",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Authentication & Onboarding",
+    flutterFile: "lib/ui/screens/auth/login_screen.dart",
+    desc: "Clean, distraction-free authentication gateway for hostel students and boarders.",
+    purpose: "Authenticates residents using their registered student email/phone and password, issuing session tokens.",
+    features: [
+      "Brand house icon badge with soft blue fill",
+      "Email or phone identification input field",
+      "Secure password input with reveal visibility toggle",
+      "Remember me state persistence checkbox",
+      "Primary 'Login' CTA & 'Create New Account' secondary action"
+    ],
+    widgets: "Form, TextFormField, CheckboxListTile, ElevatedButton, OutlinedButton",
+    tokens: "#0868DF Blue, #FBFDFF Field Surface, #DCE8F4 Border",
+    activeTab: "none",
+    renderHtml: `
+      <div class="auth-ui">
+        <div class="auth-logo">⌂</div>
+        <div class="ui-title" style="text-align:center;">Hostel Management</div>
+        <div class="ui-subtitle" style="text-align:center;">Login to your student account</div>
+        <label class="ui-label">Email or Phone</label>
+        <div class="ui-input">✉ <span>example@email.com</span></div>
+        <label class="ui-label">Password</label>
+        <div class="ui-input">🔒 <span>Enter your password</span><b>◉</b></div>
+        <div class="ui-row" style="margin:12px 0;">
+          <span style="color:var(--text);font-size:11px;">☑ Remember me</span>
+          <a style="color:var(--blue);font-weight:700;cursor:pointer;">Forgot Password?</a>
+        </div>
+        <button class="ui-btn">Login</button>
+        <div style="text-align:center;color:var(--muted);font-size:11px;margin:10px 0;">OR</div>
+        <button class="ui-btn outline">Create New Account</button>
+        <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:14px;">Don’t have an account? <b style="color:var(--blue);">Sign Up</b></p>
+      </div>
+    `
+  },
+  {
+    id: 3,
+    title: "Create Account",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Authentication & Onboarding",
+    flutterFile: "lib/ui/screens/auth/signup_screen.dart",
+    desc: "Comprehensive registration form tailored for incoming student residents and hostel staff.",
+    purpose: "Registers new boarders into the hostel database with student IDs, departments, and credentials.",
+    features: [
+      "Segmented toggle switch to select between Student and Staff",
+      "Input fields for Full Name, Email, Phone, and Student ID",
+      "Password and Confirm Password validation checks",
+      "Instant registration to local AppProvider and cloud Firestore",
+      "Quick link to toggle back to Login screen"
+    ],
+    widgets: "SingleChildScrollView, TextFormField, SegmentedButton, ElevatedButton",
+    tokens: "#EEF5FB Pill, #0868DF Accent, 10px Border Radius",
+    activeTab: "none",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title" style="text-align:center;">Create Account</div>
+        <div class="ui-subtitle" style="text-align:center;">Join our hostel community</div>
+        <div class="ui-seg"><b>Student</b><span>Staff</span></div>
+        <div class="ui-input">👤 <span>Full Name</span></div>
+        <div class="ui-input">✉ <span>Email Address</span></div>
+        <div class="ui-input">☎ <span>Phone Number</span></div>
+        <div class="ui-input">▣ <span>Student ID</span></div>
+        <div class="ui-input">🔒 <span>Password</span></div>
+        <div class="ui-input">✓ <span>Confirm Password</span></div>
+        <button class="ui-btn" style="margin-top:14px;">Sign Up</button>
+        <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">Already have an account? <b style="color:var(--blue);">Login</b></p>
+      </div>
+    `
+  },
+  {
+    id: 4,
+    title: "Forgot Password",
+    role: "universal",
+    roleLabel: "UNIVERSAL",
+    category: "Authentication & Onboarding",
+    flutterFile: "lib/ui/screens/auth/login_screen.dart",
+    desc: "Self-service password recovery screen with clean illustration icon and verification link dispatcher.",
+    purpose: "Allows students and admins to regain access to their account via registered email.",
+    features: [
+      "Prominent circular email envelope graphic",
+      "Clear instructions for password recovery",
+      "Email or phone verification input field",
+      "Primary 'Send Reset Link' submission button",
+      "Quick navigation back to login"
+    ],
+    widgets: "Scaffold, TextFormField, ElevatedButton, TextButton",
+    tokens: "#EAF3FF Icon Bubble, #063B73 Navy, #0868DF Blue",
+    activeTab: "none",
+    renderHtml: `
+      <div class="auth-ui centered">
+        <div class="auth-icon">✉</div>
+        <div class="ui-title">Forgot Password</div>
+        <div class="ui-subtitle">Enter your email or phone number to reset your password</div>
+        <div class="ui-input" style="margin-top:20px;">✉ <span>example@email.com</span></div>
+        <button class="ui-btn" style="margin-top:16px;">Send Reset Link</button>
+        <a style="display:block;margin-top:14px;font-size:11px;color:var(--blue);font-weight:700;">Back to Login</a>
+      </div>
+    `
+  },
+  {
+    id: 5,
+    title: "Student Home",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Student Experience",
+    flutterFile: "lib/ui/screens/dashboard/home_screen.dart",
+    desc: "Central student command center showcasing room assignment, dues status, and hostel announcements.",
+    purpose: "Provides the student with an immediate view of their bed allocation, monthly rent, and latest notices.",
+    features: [
+      "Personalized greeting ('Hello, Masud') with alert bell",
+      "Gradient Room Card (Room 204B · Bed A) with 'View Details' chip",
+      "2-column KPI stats for Monthly Rent (৳3,000) and Last Payment (৳3,000)",
+      "Recent Notifications feed (Payment receipt, Warden notice)",
+      "Persistent bottom navigation dock with Home active"
+    ],
+    widgets: "Card, Container with BoxDecoration gradient, GridView, ListView.builder, NavigationBar",
+    tokens: "Gradient #0878ED to #1C61CC, #12304D Text, 16px Radius",
+    activeTab: "home",
+    renderHtml: `
+      <div class="page-ui">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div><b style="font-size:15px;color:var(--navy);">Hello, Masud</b><small style="display:block;font-size:10px;color:var(--muted);">Welcome back!</small></div>
+          <span style="font-size:18px;">🔔</span>
+        </div>
+        <div class="ui-room-card">
+          <div><b>▣ Room 204B</b><small>Bed: A · 2nd Floor</small></div>
+          <button class="ui-btn mini" style="background:#fff;color:var(--navy);font-weight:700;">View Details</button>
+        </div>
+        <div class="ui-stats2">
+          <div><small>Monthly Rent</small><b>৳3,000</b></div>
+          <div><small>Last Payment</small><b>৳3,000</b></div>
+        </div>
+        <h4 style="margin:16px 0 8px;font-size:13px;color:var(--navy);">Recent Notifications</h4>
+        <div class="ui-card-item">🟢 Payment received <small style="display:block;font-size:10px;color:var(--muted);margin-top:2px;">Apr 10, 2025 · ৳3,000 via bKash</small></div>
+        <div class="ui-card-item">🔵 New message from warden <small style="display:block;font-size:10px;color:var(--muted);margin-top:2px;">Apr 8, 2025 · Room inspection</small></div>
+      </div>
+    `
+  },
+  {
+    id: 6,
+    title: "My Profile",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Student Experience",
+    flutterFile: "lib/ui/screens/features/setting_screen.dart",
+    desc: "Complete resident identification file detailing academic department, room, and contacts.",
+    purpose: "Allows the resident to inspect their official records and trigger updates.",
+    features: [
+      "Large initials avatar badge ('MR')",
+      "Full resident name and Student ID: 241071031",
+      "Itemized records: Room 204B, Dept CSE, Phone, Email, Dhaka Address",
+      "Edit Profile modal trigger",
+      "Change Password credential update button"
+    ],
+    widgets: "CircleAvatar, Card, ListTile, ElevatedButton, OutlinedButton",
+    tokens: "#DCEEFF Avatar Fill, #12304D Text, 12px Card Radius",
+    activeTab: "settings",
+    renderHtml: `
+      <div class="page-ui" style="text-align:center;">
+        <div class="ui-title">My Profile</div>
+        <div class="ui-avatar large">MR</div>
+        <div style="font-size:16px;font-weight:800;color:var(--navy);">Masud Rana</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Student ID: 241071031</div>
+        <div class="ui-card-item" style="text-align:left;">
+          <div class="ui-details-row"><span>⌂ Room No</span><b>204B</b></div>
+          <div class="ui-details-row"><span>▦ Department</span><b>CSE</b></div>
+          <div class="ui-details-row"><span>☎ Phone</span><b>01712345678</b></div>
+          <div class="ui-details-row"><span>✉ Email</span><b>masud@gmail.com</b></div>
+          <div class="ui-details-row"><span>⌖ Address</span><b>Dhaka, Bangladesh</b></div>
+        </div>
+        <button class="ui-btn" style="margin-top:12px;">Edit Profile</button>
+        <button class="ui-btn outline">Change Password</button>
+      </div>
+    `
+  },
+  {
+    id: 7,
+    title: "Student Directory",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Student Experience",
+    flutterFile: "lib/ui/screens/features/student_screen.dart",
+    desc: "Searchable boarder roster enabling students to find roommates and discover hostel peers.",
+    purpose: "Facilitates hostel community networking and roommate room identification.",
+    features: [
+      "Live interactive search field ('Search by name, ID, room...')",
+      "Student cards showing avatar, full name, ID, and allocated room",
+      "Color-coded gender/profile avatars",
+      "Trashcan delete icon for administrative actions",
+      "'+ Add New Student' action button"
+    ],
+    widgets: "SearchBar / TextField, ListView.separated, ListTile, FloatingActionButton",
+    tokens: "#FBFDFF Field, #092F55 Border, #EF4444 Danger",
+    activeTab: "students",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">Student Directory</div>
+        <div class="ui-input">⌕ Search by name, ID, room...</div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar">MR</div>
+          <div style="flex:1;"><b>Md. Masud Rana</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071031 · Room 204B</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar" style="background:#ffe6ea;color:#c0264b;">JA</div>
+          <div style="flex:1;"><b>Jonaki Akter</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071032 · Room 301A</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar">RH</div>
+          <div style="flex:1;"><b>Rakib Hasan</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071035 · Room 105C</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar" style="background:#ffe6ea;color:#c0264b;">SI</div>
+          <div style="flex:1;"><b>Sadia Islam</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071037 · Room 202A</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <button class="ui-btn">＋ Add New Student</button>
+      </div>
+    `
+  },
+  {
+    id: 8,
+    title: "Payment Receipts",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Financial Management",
+    flutterFile: "lib/ui/screens/features/payment_screen.dart",
+    desc: "Digital rent payment receipt book and monthly target collection tracker.",
+    purpose: "Gives students an auditable trail of rent paid and current dues balance.",
+    features: [
+      "Monthly Target KPI summary card (৳18,000 target)",
+      "Green linear progress indicator (82% collected)",
+      "Metrics: Collected ৳15,550 vs Due ৳2,450",
+      "Itemized receipt cards with #RCP-9012 numbers, amounts, and dates",
+      "PAID (green) and PENDING (orange) status chips",
+      "'+ Log New Payment' submission trigger"
+    ],
+    widgets: "LinearProgressIndicator, Card, Chip / Badge, ListView.builder, ElevatedButton",
+    tokens: "#13A66A Green, #FF9D2E Orange, #DCE8F4 Border",
+    activeTab: "payments",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">Payment Receipts</div>
+        <div class="ui-summary">
+          <span style="font-size:11px;color:var(--muted);font-weight:700;">Monthly Target</span>
+          <strong style="display:block;font-size:20px;color:var(--navy);margin:4px 0;">৳18,000</strong>
+          <div class="ui-progress-bar"><div class="ui-progress-fill"></div></div>
+          <small style="font-size:10px;color:var(--muted);">Collected: <b style="color:var(--navy);">৳15,550</b> · Due: <b style="color:var(--red);">৳2,450</b></small>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Receipt #RCP-9012</b>
+            <span class="ui-badge paid">PAID</span>
+          </div>
+          <div style="font-size:16px;font-weight:800;color:var(--navy);margin:4px 0;">৳150.00</div>
+          <small style="color:var(--muted);font-size:10px;">Md. Masud Rana · Apr 10, 2025</small>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Receipt #RCP-9013</b>
+            <span class="ui-badge pending">PENDING</span>
+          </div>
+          <div style="font-size:16px;font-weight:800;color:var(--navy);margin:4px 0;">৳150.00</div>
+          <small style="color:var(--muted);font-size:10px;">Jonaki Akter · Apr 8, 2025</small>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Receipt #RCP-9014</b>
+            <span class="ui-badge paid">PAID</span>
+          </div>
+          <div style="font-size:16px;font-weight:800;color:var(--navy);margin:4px 0;">৳150.00</div>
+          <small style="color:var(--muted);font-size:10px;">Rakib Hasan · Apr 5, 2025</small>
+        </div>
+        <button class="ui-btn">＋ Log New Payment</button>
+      </div>
+    `
+  },
+  {
+    id: 9,
+    title: "Payment Details",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Financial Management",
+    flutterFile: "lib/ui/screens/features/payment_screen.dart",
+    desc: "Single-transaction digital receipt invoice containing payment method and verification code.",
+    purpose: "Acts as official digital proof of transaction for disputed or verified dues.",
+    features: [
+      "Resident mini profile card with avatar and room",
+      "Itemized fields: Amount ৳150.00, Month April 2025, Method bKash",
+      "Transaction ID: BK-123456789 verification string",
+      "Status badge (PENDING / PAID)",
+      "Edit (outline) and Delete (danger red) actions"
+    ],
+    widgets: "Card, Column / ListTile, Chip, Row with ElevatedButton",
+    tokens: "#13A66A Green, #DFF8EB Background, #EF4444 Danger",
+    activeTab: "payments",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">Payment Details</div>
+        <div class="ui-card-item ui-person" style="margin-bottom:14px;">
+          <div class="ui-avatar" style="background:#ffe6ea;color:#c0264b;">JA</div>
+          <div><b>Jonaki Akter</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071032 · Room 301A</small></div>
+        </div>
+        <div class="ui-card-item">
+          <div class="ui-details-row"><span>Payment Amount</span><b>৳150.00</b></div>
+          <div class="ui-details-row"><span>Month</span><b>April 2025</b></div>
+          <div class="ui-details-row"><span>Payment Method</span><b>bKash</b></div>
+          <div class="ui-details-row"><span>Transaction ID</span><b style="font-family:monospace;">BK-123456789</b></div>
+          <div class="ui-details-row"><span>Payment Date</span><b>Apr 8, 2025</b></div>
+          <div class="ui-details-row"><span>Status</span><span class="ui-badge pending">PENDING</span></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button class="ui-btn outline" style="flex:1;">Edit</button>
+          <button class="ui-btn danger" style="flex:1;">Delete</button>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: 10,
+    title: "Staff Management",
+    role: "universal",
+    roleLabel: "UNIVERSAL",
+    category: "Operations & Support",
+    flutterFile: "lib/ui/screens/features/staff_screen.dart",
+    desc: "Hostel employee directory featuring wardens, security staff, and cleaners with emergency dialer.",
+    purpose: "Connects students instantly with staff on duty and lets admins track employee shifts.",
+    features: [
+      "Staff search bar ('Search staff name or role...')",
+      "Staff cards with role badges (Warden, Security Guard, Cleaner)",
+      "Duty shift timings (Morning 7 AM - 3 PM, Night 8 PM - 6 AM)",
+      "Direct 'Call' one-tap phone intent button",
+      "'+ Add New Staff' management CTA"
+    ],
+    widgets: "TextField, ListView.builder, Card, ElevatedButton (mini), url_launcher",
+    tokens: "#DCEEFF Avatar, #0868DF Mini CTA, 12px Border Radius",
+    activeTab: "settings",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">Staff Management</div>
+        <div class="ui-input">⌕ Search staff name or role...</div>
+        <div class="ui-card-item ui-staff">
+          <div class="ui-avatar">KH</div>
+          <div style="flex:1;">
+            <b>Kamal Hossain</b>
+            <small style="display:block;font-size:10px;color:var(--muted);">Warden · Morning (7 AM–3 PM)</small>
+            <small style="display:block;font-size:10px;color:var(--blue);font-weight:700;">Salary: ৳45,000/mo</small>
+          </div>
+          <button class="ui-btn mini">Call</button>
+        </div>
+        <div class="ui-card-item ui-staff">
+          <div class="ui-avatar">SM</div>
+          <div style="flex:1;">
+            <b>Salam Mia</b>
+            <small style="display:block;font-size:10px;color:var(--muted);">Security Guard · Night (8 PM–6 AM)</small>
+            <small style="display:block;font-size:10px;color:var(--blue);font-weight:700;">Salary: ৳32,000/mo</small>
+          </div>
+          <button class="ui-btn mini">Call</button>
+        </div>
+        <div class="ui-card-item ui-staff">
+          <div class="ui-avatar">RU</div>
+          <div style="flex:1;">
+            <b>Rafiq Uddin</b>
+            <small style="display:block;font-size:10px;color:var(--muted);">Cleaner · Day (8 AM–4 PM)</small>
+            <small style="display:block;font-size:10px;color:var(--blue);font-weight:700;">Salary: ৳28,000/mo</small>
+          </div>
+          <button class="ui-btn mini">Call</button>
+        </div>
+        <button class="ui-btn">＋ Add New Staff</button>
+      </div>
+    `
+  },
+  {
+    id: 11,
+    title: "Complaint Box",
+    role: "user",
+    roleLabel: "STUDENT / USER",
+    category: "Maintenance & Complaints",
+    flutterFile: "lib/ui/screens/features/complain_screen.dart",
+    desc: "Facility maintenance ticketing hub for reporting plumbing, electricity, and cleanliness issues.",
+    purpose: "Empowers boarders to submit grievance tickets and monitor repair progress.",
+    features: [
+      "Status filter tabs (All, Pending, Resolved)",
+      "Complaint cards with Ticket #CMP-104 and room details",
+      "Problem statements (e.g. 'Water leakage in bathroom pipe')",
+      "Date tracking timestamps",
+      "'+ Add / Manage Complaint' modal button"
+    ],
+    widgets: "TabBar / TabBarView, Card, Chip, ElevatedButton, showModalBottomSheet",
+    tokens: "#FF9D2E Pending, #13A66A Resolved, #EEF5FB Tabs",
+    activeTab: "complaints",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">Complaint Box</div>
+        <div class="ui-seg"><b>All</b><span>Pending</span><span>Resolved</span></div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Ticket #CMP-104</b>
+            <span class="ui-badge pending">PENDING</span>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin:4px 0;">Jonaki Akter · Room 304</div>
+          <p style="margin:2px 0 6px;font-size:11px;color:var(--text);font-style:italic;">“Water leakage in bathroom pipe”</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <small style="font-size:10px;color:var(--muted);">Apr 12, 2025</small>
+            <button class="ui-btn mini" style="background:#eaf3ff;color:var(--blue);">Change Status</button>
+          </div>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Ticket #CMP-099</b>
+            <span class="ui-badge paid">RESOLVED</span>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin:4px 0;">Tanvir Ahmed · Room 102</div>
+          <p style="margin:2px 0 6px;font-size:11px;color:var(--text);font-style:italic;">“Corridor tube light replaced”</p>
+          <small style="font-size:10px;color:var(--muted);">Apr 10, 2025</small>
+        </div>
+        <button class="ui-btn">＋ Add / Manage Complaint</button>
+      </div>
+    `
+  },
+  {
+    id: 12,
+    title: "Settings & Cloud Sync",
+    role: "universal",
+    roleLabel: "UNIVERSAL",
+    category: "System & Preferences",
+    flutterFile: "lib/ui/screens/features/setting_screen.dart",
+    desc: "Hostel facility configuration panel, live Firestore synchronization diagnostics, and security controls.",
+    purpose: "Provides controls for cloud database replication, notifications, password changes, and sign out.",
+    features: [
+      "Hostel Residence Profile (SMUCT Campus Residence · Sector 9, Uttara)",
+      "Firebase Cloud Sync tile with Active Firestore Real-time status indicator",
+      "Change Admin / Student Password",
+      "Push Notification preferences switch",
+      "App Theme toggle (Light / Dark mode)",
+      "Red Danger 'Log Out' action button"
+    ],
+    widgets: "ListView, ListTile, SwitchListTile, ElevatedButton.icon",
+    tokens: "#13A66A Green Online Dot, #EF4444 Danger, #063B73 Navy",
+    activeTab: "settings",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">Settings</div>
+        <div class="ui-card-item" style="display:flex;gap:12px;align-items:center;">
+          <span style="font-size:20px;">🏢</span>
+          <div style="flex:1;"><b>Hostel Profile</b><small style="display:block;font-size:10px;color:var(--muted);">SMUCT Campus Residence · Sector 9, Uttara</small></div>
+          <span style="color:var(--muted);">›</span>
+        </div>
+        <div class="ui-card-item" style="display:flex;gap:12px;align-items:center;">
+          <span style="font-size:20px;">☁️</span>
+          <div style="flex:1;"><b>Firebase Cloud Sync</b><small style="display:block;font-size:10px;color:var(--green);font-weight:700;">Active · Firestore Real-time Online</small></div>
+          <span style="color:var(--muted);">›</span>
+        </div>
+        <div class="ui-card-item" style="display:flex;gap:12px;align-items:center;">
+          <span style="font-size:20px;">🔒</span>
+          <div style="flex:1;"><b>Change Password</b><small style="display:block;font-size:10px;color:var(--muted);">Update login credentials</small></div>
+          <span style="color:var(--muted);">›</span>
+        </div>
+        <div class="ui-card-item" style="display:flex;gap:12px;align-items:center;">
+          <span style="font-size:20px;">🔔</span>
+          <div style="flex:1;"><b>Notification Settings</b><small style="display:block;font-size:10px;color:var(--muted);">Alerts & announcements</small></div>
+          <span style="color:var(--muted);">›</span>
+        </div>
+        <div class="ui-card-item" style="display:flex;gap:12px;align-items:center;">
+          <span style="font-size:20px;">◐</span>
+          <div style="flex:1;"><b>App Theme</b><small style="display:block;font-size:10px;color:var(--muted);">Light Mode (Default)</small></div>
+          <span style="color:var(--muted);">›</span>
+        </div>
+        <button class="ui-btn danger outline" style="margin-top:14px;">Log Out</button>
+      </div>
+    `
+  },
+  {
+    id: 13,
+    title: "Admin Login",
+    role: "admin",
+    roleLabel: "ADMIN",
+    category: "Admin Portal",
+    flutterFile: "lib/ui/screens/auth/login_screen.dart",
+    desc: "Administrative portal entry protected by role authorization checks for hostel superintendents.",
+    purpose: "Authenticates administrative users and grants access to high-privilege operations.",
+    features: [
+      "Branded Admin Login header & house emblem",
+      "Executive administrator credential input fields",
+      "Password field with reveal toggle",
+      "Remember me state persistence",
+      "Secure Admin Access security badge"
+    ],
+    widgets: "Form, TextFormField, ElevatedButton, AppProvider.loginAsAdmin()",
+    tokens: "#063B73 Deep Navy, #0868DF CTA, 11px Border Radius",
+    activeTab: "none",
+    renderHtml: `
+      <div class="auth-ui">
+        <div class="auth-logo">⌂</div>
+        <div class="ui-title" style="text-align:center;">Hostel Management</div>
+        <div class="ui-subtitle" style="text-align:center;font-weight:700;color:var(--blue);">Admin Login Portal</div>
+        <label class="ui-label">Admin Email or Phone</label>
+        <div class="ui-input">✉ <span>admin@hostel.com</span></div>
+        <label class="ui-label">Password</label>
+        <div class="ui-input">🔒 <span>••••••••••••</span><b>◉</b></div>
+        <div class="ui-row" style="margin:12px 0;">
+          <span style="color:var(--text);font-size:11px;">☑ Remember me</span>
+          <a style="color:var(--blue);font-weight:700;cursor:pointer;">Forgot Password?</a>
+        </div>
+        <button class="ui-btn">Login as Admin</button>
+        <p style="text-align:center;font-size:10px;color:var(--muted);margin-top:16px;">🛡️ Secure Admin Access Verified</p>
+      </div>
+    `
+  },
+  {
+    id: 14,
+    title: "Admin Dashboard",
+    role: "admin",
+    roleLabel: "ADMIN",
+    category: "Admin Portal",
+    flutterFile: "lib/ui/screens/dashboard/dashboard_screen.dart",
+    desc: "Executive command dashboard with real-time KPI telemetry, action shortcuts, and revenue charts.",
+    purpose: "Provides wardens with complete situational awareness of residents, room occupancy, dues, and tickets.",
+    features: [
+      "4-card KPI metric matrix: Total Students (142), Occupied Rooms (48/60), Pending Dues (৳2,450), Active Complaints (05)",
+      "3 Quick Entry action tiles: Add Student, Add Staff, Add Payment",
+      "Monthly Payment Bar Chart with 6-month historical revenue visualization",
+      "Hostel overview topbar with alert notifications"
+    ],
+    widgets: "GridView.count, Card, CustomPaint / BarChart, Row of quick ActionCards",
+    tokens: "#063B73 Navy, #FF9D2E Warning, #EF4444 Danger, #13A66A Success",
+    activeTab: "home",
+    renderHtml: `
+      <div class="page-ui">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div><b style="font-size:16px;color:var(--navy);">Admin Dashboard</b><small style="display:block;font-size:10px;color:var(--muted);">Hostel facility overview</small></div>
+          <span style="font-size:18px;">🔔</span>
+        </div>
+        <div class="ui-grid4">
+          <div><small>Total Students</small><b>142</b></div>
+          <div><small>Occupied Rooms</small><b>48/60</b></div>
+          <div><small>Pending Dues</small><b>৳2,450</b></div>
+          <div><small>Active Complaints</small><b>05</b></div>
+        </div>
+        <h4 style="margin:14px 0 8px;font-size:12px;color:var(--navy);">Quick Entry</h4>
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;">
+          <button class="ui-btn outline" style="margin:0;padding:10px 4px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <span style="font-size:18px;">👥</span><span>Add Student</span>
+          </button>
+          <button class="ui-btn outline" style="margin:0;padding:10px 4px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <span style="font-size:18px;">🛡️</span><span>Add Staff</span>
+          </button>
+          <button class="ui-btn outline" style="margin:0;padding:10px 4px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <span style="font-size:18px;">💳</span><span>Add Payment</span>
+          </button>
+        </div>
+        <h4 style="margin:14px 0 8px;font-size:12px;color:var(--navy);">Monthly Payment Revenue</h4>
+        <div class="ui-chart-bar">
+          <i style="height:35%"></i>
+          <i style="height:55%"></i>
+          <i style="height:45%"></i>
+          <i style="height:72%"></i>
+          <i style="height:64%"></i>
+          <i style="height:85%"></i>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: 15,
+    title: "All Students (Admin)",
+    role: "admin",
+    roleLabel: "ADMIN",
+    category: "Admin Portal",
+    flutterFile: "lib/ui/screens/features/student_screen.dart",
+    desc: "Full administrative student roster with search query filtration and record eviction actions.",
+    purpose: "Enables administration to manage registered students, inspect room allocations, and vacate rooms.",
+    features: [
+      "Dynamic search input with real-time filtering",
+      "Resident cards with avatars, student ID, and room number",
+      "Trashcan deletion icon with confirm dialog",
+      "'+ Add Student' admission registration button"
+    ],
+    widgets: "TextField, ListView.separated, IconButton (delete), ElevatedButton",
+    tokens: "#063B73 Navy, #EF4444 Danger, #FBFDFF Card",
+    activeTab: "students",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">All Students</div>
+        <div class="ui-input">⌕ Search students by name, ID...</div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar">MR</div>
+          <div style="flex:1;"><b>Md. Masud Rana</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071031 · Room 204B</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar" style="background:#ffe6ea;color:#c0264b;">JA</div>
+          <div style="flex:1;"><b>Jonaki Akter</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071032 · Room 301A</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar">RH</div>
+          <div style="flex:1;"><b>Rakib Hasan</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071035 · Room 105C</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <div class="ui-card-item ui-person">
+          <div class="ui-avatar" style="background:#ffe6ea;color:#c0264b;">SI</div>
+          <div style="flex:1;"><b>Sadia Islam</b><small style="display:block;font-size:10px;color:var(--muted);">ID: 241071037 · Room 202A</small></div>
+          <span style="color:var(--red);font-size:14px;cursor:pointer;">🗑</span>
+        </div>
+        <button class="ui-btn">＋ Add Student</button>
+      </div>
+    `
+  },
+  {
+    id: 16,
+    title: "Add / Edit Student",
+    role: "admin",
+    roleLabel: "ADMIN",
+    category: "Admin Portal",
+    flutterFile: "lib/ui/screens/features/student_screen.dart",
+    desc: "Hostel admission enrollment form capturing student demographic, academic, and room allocation data.",
+    purpose: "Enrolls new students into hostel rooms and updates existing resident records.",
+    features: [
+      "Profile photo upload avatar placeholder with '+' badge",
+      "Full Name and Student ID text inputs",
+      "Phone number and Department selector",
+      "Assigned Room and Gender selection",
+      "Primary 'Save Student' commit button"
+    ],
+    widgets: "CircleAvatar with InkWell, TextFormField, DropdownButtonFormField, ElevatedButton",
+    tokens: "#FBFDFF Field Surface, #0868DF CTA, 10px Border Radius",
+    activeTab: "students",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">Add / Edit Student</div>
+        <div class="ui-avatar large" style="cursor:pointer;border:2px dashed var(--blue);">＋</div>
+        <small style="display:block;text-align:center;color:var(--muted);margin-bottom:12px;">Upload Photo</small>
+        <div class="ui-input"><span>Full Name</span></div>
+        <div class="ui-input"><span>Student ID</span></div>
+        <div class="ui-input"><span>Phone Number</span></div>
+        <div class="ui-input"><span>Department (e.g. CSE)</span></div>
+        <div class="ui-input"><span>Assigned Room (e.g. 204B)</span></div>
+        <div class="ui-input"><span>Gender</span></div>
+        <button class="ui-btn" style="margin-top:14px;">Save Student</button>
+      </div>
+    `
+  },
+  {
+    id: 17,
+    title: "All Payments (Admin)",
+    role: "admin",
+    roleLabel: "ADMIN",
+    category: "Admin Portal",
+    flutterFile: "lib/ui/screens/features/payment_screen.dart",
+    desc: "Financial revenue audit desk displaying hostel collections, arrears, and individual payments.",
+    purpose: "Gives administrators transparent control over accounts receivable and payment reconciliation.",
+    features: [
+      "Payment search field ('Search by student or ID...')",
+      "Highlight banner: Total Collected (৳15,550) vs Arrears Due (৳2,450)",
+      "Payment cards with resident name, room, amount, and status badge",
+      "'+ Add Payment' manual transaction logging CTA"
+    ],
+    widgets: "Container with soft green fill, ListView.builder, Badge, ElevatedButton",
+    tokens: "#EDFFF7 Soft Green Box, #13A66A Success, #063B73 Navy",
+    activeTab: "payments",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">All Payments</div>
+        <div class="ui-input">⌕ Search by student or ID...</div>
+        <div class="ui-summary" style="background:#edfff7;border-color:#b4f1d2;">
+          <span style="font-size:11px;color:#0d7a4d;font-weight:700;">Total Collected</span>
+          <strong style="display:block;font-size:20px;color:var(--navy);margin:4px 0;">৳15,550</strong>
+          <small style="font-size:10px;color:var(--muted);">Total Due: <b style="color:var(--red);">৳2,450</b></small>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Md. Masud Rana</b>
+            <span class="ui-badge paid">PAID</span>
+          </div>
+          <div style="font-size:15px;font-weight:800;color:var(--navy);margin:4px 0;">৳3,000</div>
+          <small style="color:var(--muted);font-size:10px;">Room 204B · April 2025</small>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Jonaki Akter</b>
+            <span class="ui-badge pending">PENDING</span>
+          </div>
+          <div style="font-size:15px;font-weight:800;color:var(--navy);margin:4px 0;">৳3,000</div>
+          <small style="color:var(--muted);font-size:10px;">Room 301A · April 2025</small>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Rakib Hasan</b>
+            <span class="ui-badge paid">PAID</span>
+          </div>
+          <div style="font-size:15px;font-weight:800;color:var(--navy);margin:4px 0;">৳3,000</div>
+          <small style="color:var(--muted);font-size:10px;">Room 105C · April 2025</small>
+        </div>
+        <button class="ui-btn">＋ Add Payment</button>
+      </div>
+    `
+  },
+  {
+    id: 18,
+    title: "All Complaints (Admin)",
+    role: "admin",
+    roleLabel: "ADMIN",
+    category: "Admin Portal",
+    flutterFile: "lib/ui/screens/features/complain_screen.dart",
+    desc: "Superintendent maintenance ticket desk with one-tap status toggling from Pending to Resolved.",
+    purpose: "Enables administration to assign maintenance staff and mark hostel issues as solved.",
+    features: [
+      "Filter tabs (All, Pending, Resolved)",
+      "Tickets with Ticket ID (#CMP-104), student name, and room number",
+      "Verbatim grievance statement quotation",
+      "Interactive 'Change Status' action button",
+      "Instant status toggle with feedback toast"
+    ],
+    widgets: "TabBar, ListView.builder, ElevatedButton.tonal, AppProvider.toggleComplaintStatus()",
+    tokens: "#063B73 Navy, #FF9D2E Pending, #13A66A Resolved",
+    activeTab: "complaints",
+    renderHtml: `
+      <div class="page-ui">
+        <div class="ui-title">All Complaints</div>
+        <div class="ui-seg"><b>All</b><span>Pending</span><span>Resolved</span></div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Ticket #CMP-104</b>
+            <span class="ui-badge pending">PENDING</span>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin:4px 0;">Jonaki Akter · Room 304</div>
+          <p style="margin:2px 0 6px;font-size:11px;color:var(--text);font-style:italic;">“Water leakage in bathroom pipe”</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <small style="font-size:10px;color:var(--muted);">Apr 12, 2025</small>
+            <button class="ui-btn mini" style="background:#eaf3ff;color:var(--blue);">Change Status</button>
+          </div>
+        </div>
+        <div class="ui-card-item">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <b>Ticket #CMP-099</b>
+            <span class="ui-badge paid">RESOLVED</span>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin:4px 0;">Tanvir Ahmed · Room 102</div>
+          <p style="margin:2px 0 6px;font-size:11px;color:var(--text);font-style:italic;">“Corridor tube light replaced”</p>
+          <small style="font-size:10px;color:var(--muted);">Apr 10, 2025</small>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: 19,
+    title: "Admin Profile",
+    role: "admin",
+    roleLabel: "ADMIN",
+    category: "Admin Portal",
+    flutterFile: "lib/ui/screens/features/setting_screen.dart",
+    desc: "Executive administrator profile card verifying official role credentials and contact phone.",
+    purpose: "Displays the active warden's credentials and allows profile modification.",
+    features: [
+      "Huge 'AD' avatar badge with deep navy tint",
+      "Administrator full name and official email: admin@hostel.com",
+      "Verified role specification: Administrator",
+      "Official hotline phone number",
+      "Primary 'Edit Profile' button"
+    ],
+    widgets: "CircleAvatar, Card, ListTile, ElevatedButton",
+    tokens: "#063B73 Navy, #DCEEFF Avatar, #0868DF CTA",
+    activeTab: "settings",
+    renderHtml: `
+      <div class="page-ui" style="text-align:center;">
+        <div class="ui-title">Admin Profile</div>
+        <div class="ui-avatar huge">AD</div>
+        <div style="font-size:17px;font-weight:800;color:var(--navy);">Admin</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">admin@hostel.com</div>
+        <div class="ui-card-item" style="text-align:left;">
+          <div class="ui-details-row"><span>⌘ Role</span><b>Administrator</b></div>
+          <div class="ui-details-row"><span>☎ Phone</span><b>01711223344</b></div>
+          <div class="ui-details-row"><span>✉ Email</span><b>admin@hostel.com</b></div>
+        </div>
+        <button class="ui-btn" style="margin-top:14px;">Edit Profile</button>
+      </div>
+    `
+  },
+  {
+    id: 20,
+    title: "Logout Modal",
+    role: "universal",
+    roleLabel: "UNIVERSAL",
+    category: "System & Modals",
+    flutterFile: "lib/ui/screens/features/setting_screen.dart",
+    desc: "Safe exit dialog preventing inadvertent sign out and clearing active session tokens.",
+    purpose: "Prompts the user to confirm session logout before returning to the Login screen.",
+    features: [
+      "Frosted navy backdrop overlay blur",
+      "Red circular exit icon indicator",
+      "Clear confirmation prompt statement",
+      "Cancel outlined dismissal button",
+      "Danger Red 'Log Out' action button"
+    ],
+    widgets: "showDialog / AlertDialog, BackdropFilter, OutlinedButton, ElevatedButton (danger style)",
+    tokens: "#FFE8E8 Icon Bg, #EF4444 Danger Red, 20px Modal Radius",
+    activeTab: "settings",
+    renderHtml: `
+      <div class="logout-modal-box">
+        <div class="modal-card">
+          <div style="width:52px;height:52px;background:#ffe8e8;color:var(--red);border-radius:50%;display:grid;place-items:center;font-size:22px;margin:0 auto 12px;">↪</div>
+          <div style="font-size:18px;font-weight:800;color:var(--navy);margin-bottom:6px;">Log Out</div>
+          <p style="font-size:12px;color:var(--muted);margin:0 0 16px;">Are you sure you want to log out from your account?</p>
+          <div style="display:flex;gap:10px;">
+            <button class="ui-btn outline" style="flex:1;">Cancel</button>
+            <button class="ui-btn danger" style="flex:1;">Log Out</button>
+          </div>
+        </div>
+      </div>
+    `
+  }
+];
+
+// STATE MANAGEMENT
+let currentIndex = 0;
+let currentRoleFilter = 'all'; // 'all', 'user', 'admin'
+let filteredScreens = [...SCREENS_DATA];
+
+function initPresentation() {
+  populateDropdown();
+  populateJumpPills();
+  renderGalleryGrid();
+  renderCurrentScreen();
+  setupKeyboardShortcuts();
+}
+
+// FILTER SCREENS BY ROLE
+function setRoleFilter(role) {
+  currentRoleFilter = role;
+  document.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (role === 'all') {
+    filteredScreens = [...SCREENS_DATA];
+  } else if (role === 'user') {
+    filteredScreens = SCREENS_DATA.filter(s => s.role === 'user' || s.role === 'universal');
+  } else if (role === 'admin') {
+    filteredScreens = SCREENS_DATA.filter(s => s.role === 'admin' || s.role === 'universal');
+  }
+
+  currentIndex = 0;
+  populateDropdown();
+  populateJumpPills();
+  renderGalleryGrid();
+  renderCurrentScreen();
+}
+
+// POPULATE DROPDOWN
+function populateDropdown() {
+  const select = document.getElementById('screenDropdown');
+  select.innerHTML = '';
+  filteredScreens.forEach((screen, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = `${screen.id < 10 ? '0' + screen.id : screen.id}. ${screen.title} (${screen.roleLabel})`;
+    select.appendChild(opt);
+  });
+}
+
+// POPULATE JUMP PILLS
+function populateJumpPills() {
+  const container = document.getElementById('jumpPillsContainer');
+  container.innerHTML = '';
+  filteredScreens.forEach((screen, idx) => {
+    const pill = document.createElement('button');
+    pill.className = `jump-pill ${idx === currentIndex ? 'active' : ''}`;
+    pill.textContent = `${screen.id < 10 ? '0' + screen.id : screen.id}. ${screen.title}`;
+    pill.onclick = () => {
+      currentIndex = idx;
+      renderCurrentScreen();
+    };
+    container.appendChild(pill);
+  });
+}
+
+// RENDER CURRENT SCREEN DETAILS & PHONE
+function renderCurrentScreen() {
+  const screen = filteredScreens[currentIndex];
+  if (!screen) return;
+
+  // 1. Phone Viewport
+  const phoneViewport = document.getElementById('phoneViewport');
+  phoneViewport.innerHTML = screen.renderHtml;
+  phoneViewport.scrollTop = 0;
+
+  // 2. Update Bottom Nav active tab
+  const tabs = ['home', 'students', 'payments', 'complaints', 'settings'];
+  tabs.forEach(t => {
+    const el = document.getElementById('navTab' + t.charAt(0).toUpperCase() + t.slice(1));
+    if (el) el.classList.remove('active');
+  });
+  if (screen.activeTab && screen.activeTab !== 'none') {
+    const activeEl = document.getElementById('navTab' + screen.activeTab.charAt(0).toUpperCase() + screen.activeTab.slice(1));
+    if (activeEl) activeEl.classList.add('active');
+  }
+
+  // 3. Explanation Card Text
+  document.getElementById('screenIdBadge').textContent = `Screen ${screen.id < 10 ? '0' + screen.id : screen.id}`;
+  const roleBadge = document.getElementById('screenRoleBadge');
+  roleBadge.textContent = screen.roleLabel;
+  roleBadge.className = `role-badge ${screen.role === 'user' ? 'user' : screen.role === 'admin' ? 'admin' : 'univ'}`;
+
+  document.getElementById('screenCategoryText').textContent = screen.category;
+  document.getElementById('screenTitleText').textContent = screen.title;
+  document.getElementById('screenDescText').textContent = screen.desc;
+  document.getElementById('screenPurposeText').textContent = screen.purpose;
+
+  // 4. Features List
+  const featureList = document.getElementById('screenFeaturesList');
+  featureList.innerHTML = '';
+  screen.features.forEach(f => {
+    const li = document.createElement('li');
+    li.textContent = f;
+    featureList.appendChild(li);
+  });
+
+  // 5. Technical Architecture
+  document.getElementById('specFlutterFile').textContent = screen.flutterFile;
+  document.getElementById('specWidgets').textContent = screen.widgets;
+  document.getElementById('specTokens').textContent = screen.tokens;
+
+  // 6. Counters & Dropdown sync
+  const counterText = `${currentIndex + 1} / ${filteredScreens.length}`;
+  document.getElementById('counterLabel').textContent = counterText;
+  document.getElementById('slideCounterBottom').textContent = counterText;
+  document.getElementById('screenDropdown').value = currentIndex;
+
+  // Sync Jump Pills
+  document.querySelectorAll('.jump-pill').forEach((p, idx) => {
+    p.classList.toggle('active', idx === currentIndex);
+  });
+}
+
+// NEXT / PREV NAVIGATION
+function nextScreen() {
+  if (currentIndex < filteredScreens.length - 1) {
+    currentIndex++;
+  } else {
+    currentIndex = 0; // loop back to first
+  }
+  renderCurrentScreen();
+}
+
+function prevScreen() {
+  if (currentIndex > 0) {
+    currentIndex--;
+  } else {
+    currentIndex = filteredScreens.length - 1; // loop to last
+  }
+  renderCurrentScreen();
+}
+
+function jumpToScreen(idx) {
+  currentIndex = parseInt(idx, 10);
+  renderCurrentScreen();
+}
+
+// KEYBOARD SHORTCUTS
+function setupKeyboardShortcuts() {
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+      nextScreen();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      prevScreen();
+    } else if (e.key.toLowerCase() === 'f') {
+      triggerPresentationMode();
+    } else if (e.key === 'Escape') {
+      closeDownloadModal();
+    }
+  });
+}
+
+// TOGGLE VIEW MODE (SPLIT vs GALLERY)
+function toggleViewMode(mode) {
+  const splitView = document.getElementById('splitView');
+  const galleryView = document.getElementById('galleryView');
+  const tabSplit = document.getElementById('tabSplit');
+  const tabGallery = document.getElementById('tabGallery');
+
+  if (mode === 'gallery') {
+    splitView.style.display = 'none';
+    galleryView.style.display = 'grid';
+    tabSplit.classList.remove('active');
+    tabGallery.classList.add('active');
+  } else {
+    splitView.style.display = 'grid';
+    galleryView.style.display = 'none';
+    tabSplit.classList.add('active');
+    tabGallery.classList.remove('active');
+  }
+}
+
+// RENDER GALLERY GRID
+function renderGalleryGrid() {
+  const container = document.getElementById('galleryView');
+  container.innerHTML = '';
+  filteredScreens.forEach((screen, idx) => {
+    const card = document.createElement('div');
+    card.className = 'gallery-card';
+    card.onclick = () => {
+      currentIndex = idx;
+      toggleViewMode('split');
+      renderCurrentScreen();
+    };
+
+    card.innerHTML = `
+      <div class="gallery-preview">
+        <div style="transform:scale(0.48);transform-origin:top center;width:340px;height:520px;background:#fff;border:5px solid #092f55;border-radius:30px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.15);pointer-events:none;">
+          <div style="height:24px;background:#fff;display:flex;justify-content:space-between;padding:0 14px;font-size:10px;font-weight:700;align-items:center;">
+            <span>9:41</span><span>⌁⌁⌁ ▰</span>
+          </div>
+          <div style="height:440px;overflow:hidden;">
+            ${screen.renderHtml}
+          </div>
+        </div>
+      </div>
+      <div class="gallery-info">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-size:10px;font-weight:800;color:var(--blue);background:#ebf4ff;padding:3px 8px;border-radius:12px;">Screen ${screen.id < 10 ? '0' + screen.id : screen.id}</span>
+          <span class="role-badge ${screen.role === 'user' ? 'user' : screen.role === 'admin' ? 'admin' : 'univ'}" style="font-size:10px;padding:3px 8px;">${screen.roleLabel}</span>
+        </div>
+        <h4>${screen.title}</h4>
+        <p>${screen.desc.substring(0, 75)}...</p>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// PRESENTATION FULLSCREEN
+function triggerPresentationMode() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => {
+      alert(`Error attempting to enable full-screen mode: ${err.message}`);
+    });
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+// DOWNLOAD MODAL CONTROLS
+function openDownloadModal() {
+  document.getElementById('downloadModal').style.display = 'grid';
+}
+
+function closeDownloadModal(e) {
+  if (!e || e.target.id === 'downloadModal' || e.target.classList.contains('modal-close')) {
+    document.getElementById('downloadModal').style.display = 'none';
+  }
+}
+
+function printPresentationPDF() {
+  closeDownloadModal();
+  setTimeout(() => {
+    window.print();
+  }, 300);
+}
+
+// INITIALIZE ON LOAD
+window.onload = initPresentation;
+</script>
+</body>
+</html>
